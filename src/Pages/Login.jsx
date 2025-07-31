@@ -1,10 +1,14 @@
-import React, { use } from 'react';
-import { Link } from 'react-router';
+import React, { use, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
-
+    const [error, setError] = useState("");
     const { signInUser, setUser } = use(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    console.log("locations", location);
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -17,10 +21,13 @@ const Login = () => {
         signInUser(email, password)
             .then((result) => {
                 console.log(result.user)
-                setUser(result.user)
+                setUser(result.user);
+                navigate(`${location.state? location.state: '/'}`);
             })
             .catch((error) => {
                 console.log(error)
+                const errorCode = error.code;
+                setError(errorCode);
             })
     }
 
@@ -32,10 +39,13 @@ const Login = () => {
             <div className="card-body">
                 <form onSubmit={handleSignIn} className="fieldset">
                     <label className="label">Email</label>
-                    <input type="email" name='email' className="input" placeholder="Enter Your Email" />
+                    <input type="email" name='email' className="input" placeholder="Enter Your Email" required />
                     <label className="label">Password</label>
-                    <input type="password" name='password' className="input" placeholder="Enter your Password" />
+                    <input type="password" name='password' className="input" placeholder="Enter your Password" required />
                     <div><a className="link link-hover text-primary">Forgot password?</a></div>
+
+                    {error && <p className='text-secondary text-sm'>{error}</p> }
+
                     <button className="btn btn-neutral mt-4">Login</button>
                     <div className='mt-5'>
                         <p className='text-center text-primary'>Don't have an account?
