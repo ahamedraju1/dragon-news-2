@@ -5,11 +5,13 @@ import CategoryNews from "../Pages/CategoryNews";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import Auth from "../Layouts/Auth";
+import NewsDetails from "../Pages/NewsDetails";
+import PrivateRoute from "../Provider/PrivateRoute";
 
 const router = createBrowserRouter(
     [
         {
-            path:'/',
+            path: '/',
             Component: Home,
             children: [
                 {
@@ -19,17 +21,17 @@ const router = createBrowserRouter(
                 {
                     path: '/category/:id',
                     element: <CategoryNews></CategoryNews>,
-                    loader: ()=> fetch('/news.json')
+                    loader: () => fetch('/news.json')
                 }
             ]
         },
 
         {
             path: '/auth',
-            element:  <Auth></Auth>,
+            element: <Auth></Auth>,
             children: [
                 {
-                    path:'/auth/login',
+                    path: '/auth/login',
                     element: <Login></Login>
                 },
                 {
@@ -39,8 +41,12 @@ const router = createBrowserRouter(
             ]
         },
         {
-            path: '/news',
-            element: <h2> News</h2>
+            path: '/news-details/:id',
+            element:
+                <PrivateRoute>
+                    <NewsDetails></NewsDetails>
+                </PrivateRoute>,
+            loader: () => fetch('/news.json')
         }
         ,
         {
@@ -49,4 +55,4 @@ const router = createBrowserRouter(
         }
     ]);
 
-  export default router;  
+export default router;  
