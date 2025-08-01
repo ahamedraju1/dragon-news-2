@@ -10,7 +10,7 @@ const Navbar = () => {
     const { pathname } = useLocation();
 
     const handleLogout = () => {
-        console.log("User trying to Logout ");
+        // console.log("User trying to Logout ");
         signOutUser()
             .then(() => {
                 alert('sign out successful')

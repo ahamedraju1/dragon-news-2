@@ -5,7 +5,7 @@ const NewsDetailsCard = ({ news }) => {
     if (!news || !news.title) {
         return <p>Loading news or no data found...</p>; // or return nothing or a spinner
     }
-    console.log("news", news);
+    // console.log("news", news);
 
     return (
         <div className='space-y-5'>

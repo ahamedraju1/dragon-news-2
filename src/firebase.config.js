@@ -5,14 +5,33 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAoq1CO_7rn8XXCNS9A8KAxTTn7SX-H094",
-  authDomain: "dragon-news-2-fcd6f.firebaseapp.com",
-  projectId: "dragon-news-2-fcd6f",
-  storageBucket: "dragon-news-2-fcd6f.firebasestorage.app",
-  messagingSenderId: "483492894126",
-  appId: "1:483492894126:web:3ee76af3f730122bb6243f"
+  apiKey:import.meta.env.VITE_apiKey,  
+  authDomain:import.meta.env.VITE_authDomain, 
+  projectId:import.meta.env.VITE_projectId,  
+  storageBucket:import.meta.env.VITE_storageBucket, 
+  messagingSenderId:import.meta.env.VITE_messagingSenderId,  
+  appId:import.meta.env.VITE_appId,
+
 };
 
+//  console.log("Firebase Config:", firebaseConfig);
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+ const app = initializeApp(firebaseConfig);
 export default app;
+
+// let app = null;
+
+// if (import.meta.env.MODE !== "development") {
+//   const firebaseConfig = {
+//     apiKey: import.meta.env.VITE_apiKey,
+//     authDomain: import.meta.env.VITE_authDomain,
+//     projectId: import.meta.env.VITE_projectId,
+//     storageBucket: import.meta.env.VITE_storageBucket,
+//     messagingSenderId: import.meta.env.VITE_messagingSenderId,
+//     appId: import.meta.env.VITE_appId,
+//   };
+
+//   app = initializeApp(firebaseConfig);
+// }
+
+// export default app;

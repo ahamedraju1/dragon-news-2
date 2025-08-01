@@ -8,14 +8,14 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    console.log("locations", location);
+    // console.log("locations", location);
 
     const handleSignIn = e => {
         e.preventDefault();
 
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password);
+        // console.log(email, password);
 
         // Login User
         signInUser(email, password)
