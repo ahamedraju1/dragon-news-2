@@ -22,7 +22,7 @@ const Login = () => {
             .then((result) => {
                 console.log(result.user)
                 setUser(result.user);
-                navigate(`${location.state? location.state: '/'}`);
+                navigate(`${location.state ? location.state : '/'}`);
             })
             .catch((error) => {
                 console.log(error)
@@ -42,9 +42,11 @@ const Login = () => {
                     <input type="email" name='email' className="input" placeholder="Enter Your Email" required />
                     <label className="label">Password</label>
                     <input type="password" name='password' className="input" placeholder="Enter your Password" required />
-                    <div><a className="link link-hover text-primary">Forgot password?</a></div>
+                    <div>
+                        <Link to='/auth/password' className="link link-hover text-primary">Forgot password?</Link>
+                    </div>
 
-                    {error && <p className='text-secondary text-sm'>{error}</p> }
+                    {error && <p className='text-secondary text-sm'>{error}</p>}
 
                     <button className="btn btn-neutral mt-4">Login</button>
                     <div className='mt-5'>

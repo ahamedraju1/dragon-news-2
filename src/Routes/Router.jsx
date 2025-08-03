@@ -8,6 +8,7 @@ import Auth from "../Layouts/Auth";
 import NewsDetails from "../Pages/NewsDetails";
 import PrivateRoute from "../Provider/PrivateRoute";
 import Loading from "../Pages/Loading";
+import Password from "../component/Password/Password";
 
 const router = createBrowserRouter(
     [
@@ -39,8 +40,13 @@ const router = createBrowserRouter(
                 {
                     path: '/auth/register',
                     element: <Register></Register>
-                }
+                },
+
             ]
+        },
+        {
+            path: '/auth/password',
+            element: <Password></Password>
         },
         {
             path: '/news-details/:id',

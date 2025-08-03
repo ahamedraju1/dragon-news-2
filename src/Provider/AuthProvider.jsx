@@ -1,17 +1,21 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Auth from '../Layouts/Auth';
 import app from '../firebase.config';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 // import { AuthContext } from './AuthContext';
 export const AuthContext = createContext();
 
 
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    
     const [loading, setLoading] = useState(true);
+    const [latestTitle, setLatestTitle] =useState("")
+    // const [password, setPassword] = useState();
+   
     // console.log(user, loading);
 
     // sign in user 
@@ -26,17 +30,32 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
+
+    const googleSignIn = ()=>{
+        setLoading(true);
+        return signInWithPopup(auth, googleProvider)
+    }
+
+    const githubSignIn = ()=>{
+        return signInWithPopup(auth, githubProvider);
+    }
     // logout user
     const signOutUser = () => {
         setLoading(true);
         return signOut(auth);
     }
 
+
+    const resetPassword = (email)=>{
+        return sendPasswordResetEmail(auth, email)
+    };
+
     // observer state changes 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
+             
         });
         return () => {
             unSubscribe();
@@ -51,12 +70,17 @@ const AuthProvider = ({ children }) => {
     const userInfo = {
         user,
         loading,
+        latestTitle,
         setUser,
         createUser,
         signInUser,
+        googleSignIn,
+        githubSignIn,
         signOutUser,
         setLoading,
-        updateUser
+        updateUser,
+        setLatestTitle,
+        resetPassword
     }
 
     return (
